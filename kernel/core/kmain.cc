@@ -1,7 +1,6 @@
-#include <stdbool.h>
 
-#define VIDEO_MEMORY  0xB8000
-#define WHITE_ON_BLACK 0x0F
+constexpr int VIDEO_MEMORY = 0xB8000;
+constexpr int WHITE_ON_BLACK = 0x0F;
 
 static int cursor_x = 0;
 static int cursor_y = 0;
@@ -46,8 +45,8 @@ void print_string(const char* str) {
     }
 }
 
-void kmain(void){
-	print_string("Hola Mundo!\n ");
+extern "C" void kmain(void){
+	print_string("Hola Mundo!\n Adios!");
 
 	while (true){}
 

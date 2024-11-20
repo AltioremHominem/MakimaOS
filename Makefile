@@ -1,9 +1,9 @@
 
-CC = gcc
+CC = g++
 NASM = nasm
 LD = ld
 
-CFLAGS = -std=gnu2x -m32 -Wall -Wextra -g -ffreestanding -nostdlib  -I./include
+CFLAGS = -m32 -Wall -Wextra -g -ffreestanding -nostdlib  -I./include -fno-exceptions -fno-rtti
 NASMFLAGS = -f elf32
 LDFLAGS = -m elf_i386 -T linker.ld
 
@@ -14,10 +14,10 @@ OBJ_DIR = $(BUILD_DIR)/obj
 BIN_DIR = $(BUILD_DIR)/bin
 
 ASM_SOURCES = $(wildcard $(KERNEL_DIR)/**/*.s)
-C_SOURCES = $(wildcard $(KERNEL_DIR)/**/*.c)
+C_SOURCES = $(wildcard $(KERNEL_DIR)/**/*.cc)
 
 ASM_OBJECTS = $(patsubst $(KERNEL_DIR)/%.s,$(OBJ_DIR)/%.o,$(ASM_SOURCES))
-C_OBJECTS = $(patsubst $(KERNEL_DIR)/%.c,$(OBJ_DIR)/%.o,$(C_SOURCES))
+C_OBJECTS = $(patsubst $(KERNEL_DIR)/%.cc,$(OBJ_DIR)/%.o,$(C_SOURCES))
 
 KERNEL = $(BIN_DIR)/kernel.bin
 
@@ -34,7 +34,7 @@ $(OBJ_DIR)/%.o: $(KERNEL_DIR)/%.s
 	@mkdir -p $(dir $@)
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-$(OBJ_DIR)/%.o: $(KERNEL_DIR)/%.c
+$(OBJ_DIR)/%.o: $(KERNEL_DIR)/%.cc
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
