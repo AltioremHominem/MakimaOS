@@ -34,7 +34,7 @@ $(OBJ_DIR)/%.o: $(KERNEL_DIR)/%.s
 	@mkdir -p $(dir $@)
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-$(OBJ_DIR)/%.o: $(KERNEL_DIR)/%.cpp
+$(OBJ_DIR)/%.o: $(KERNEL_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
