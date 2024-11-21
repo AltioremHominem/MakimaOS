@@ -1,4 +1,4 @@
-#include <util/printf.hh>
+#include <util/terminal.hh>
 
 constexpr int VIDEO_MEMORY = 0xB8000;
 constexpr int WHITE_ON_BLACK = 0x0F;
@@ -18,7 +18,7 @@ void clear_screen() {
     cursor_y = 0;
 }
 
-void print_char(char c) {
+static void print_char(char c) {
     char* video_memory = (char*)VIDEO_MEMORY;
     
     if (c == '\n') {
